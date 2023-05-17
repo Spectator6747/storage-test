@@ -6,7 +6,6 @@ fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --fi
 ```
 
 ### SSD Samsung 860Pro_1TB
-
 ```
 read:	IOPS=43.4k, BW=170MiB/s (178MB/s)(3070MiB/18105msec)
 write:	IOPS=14.5k, BW=56.7MiB/s (59.4MB/s)(1026MiB/18105msec)
@@ -33,14 +32,12 @@ test: (groupid=0, jobs=1): err= 0: pid=187721: Wed May 17 11:03:32 2023
      latency   : target=0, window=0, percentile=100.00%, depth=64
 
 Run status group 0 (all jobs):
-   READ: bw=170MiB/s (178MB/s), 170MiB/s-170MiB/s (178MB/s-178MB/s), io=3070MiB (3219MB), run=18105-18105msec
+  READ: bw=170MiB/s (178MB/s), 170MiB/s-170MiB/s (178MB/s-178MB/s), io=3070MiB (3219MB), run=18105-18105msec
   WRITE: bw=56.7MiB/s (59.4MB/s), 56.7MiB/s-56.7MiB/s (59.4MB/s-59.4MB/s), io=1026MiB (1076MB), run=18105-18105msec
 
 Disk stats (read/write):
   sda: ios=782465/261514, merge=0/11, ticks=131454/23960, in_queue=155414, util=99.73%
-:~$
 ```
-
 ### NvMe Samsung EVO960_1TB
 ```
 read: IOPS=50.2k, BW=196MiB/s (205MB/s)(3070MiB/15669msec)
@@ -67,10 +64,41 @@ test: (groupid=0, jobs=1): err= 0: pid=187850: Wed May 17 11:05:42 2023
      latency   : target=0, window=0, percentile=100.00%, depth=64
 
 Run status group 0 (all jobs):
-   READ: bw=196MiB/s (205MB/s), 196MiB/s-196MiB/s (205MB/s-205MB/s), io=3070MiB (3219MB), run=15669-15669msec
+  READ: bw=196MiB/s (205MB/s), 196MiB/s-196MiB/s (205MB/s-205MB/s), io=3070MiB (3219MB), run=15669-15669msec
   WRITE: bw=65.5MiB/s (68.7MB/s), 65.5MiB/s-65.5MiB/s (68.7MB/s-68.7MB/s), io=1026MiB (1076MB), run=15669-15669msec
 
 Disk stats (read/write):
   sda: ios=784416/262233, merge=0/23, ticks=166994/20124, in_queue=187117, util=99.68%
-:~$
 ```
+### iSCSI TruNAS Scale - Sync Always - Network Storage over IP 10GB
+```
+read: IOPS=20.0k, BW=78.3MiB/s (82.1MB/s)(3070MiB/39227msec)
+write: IOPS=6695, BW=26.2MiB/s (27.4MB/s)(1026MiB/39227msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.28
+Starting 1 process
+test: Laying out IO file (1 file / 4096MiB)
+Jobs: 1 (f=1): [m(1)][100.0%][r=59.9MiB/s,w=19.6MiB/s][r=15.3k,w=5023 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=4559: Wed May 17 16:12:08 2023
+  read: IOPS=20.0k, BW=78.3MiB/s (82.1MB/s)(3070MiB/39227msec)
+   bw (  KiB/s): min=30248, max=111376, per=99.95%, avg=80104.72, stdev=22883.82, samples=78
+   iops        : min= 7562, max=27844, avg=20026.18, stdev=5720.96, samples=78
+  write: IOPS=6695, BW=26.2MiB/s (27.4MB/s)(1026MiB/39227msec); 0 zone resets
+   bw (  KiB/s): min=10352, max=36760, per=99.94%, avg=26768.82, stdev=7683.97, samples=78
+   iops        : min= 2588, max= 9190, avg=6692.21, stdev=1920.99, samples=78
+  cpu          : usr=7.15%, sys=37.12%, ctx=127008, majf=0, minf=7
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+  READ: bw=78.3MiB/s (82.1MB/s), 78.3MiB/s-78.3MiB/s (82.1MB/s-82.1MB/s), io=3070MiB (3219MB), run=39227-39227msec
+  WRITE: bw=26.2MiB/s (27.4MB/s), 26.2MiB/s-26.2MiB/s (27.4MB/s-27.4MB/s), io=1026MiB (1076MB), run=39227-39227msec
+
+Disk stats (read/write):
+  sda: ios=783406/261852, merge=0/7, ticks=1704136/663975, in_queue=2368111, util=99.83%
