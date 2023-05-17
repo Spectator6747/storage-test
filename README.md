@@ -328,6 +328,70 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=781917/261692, merge=1/300, ticks=1773606/594856, in_queue=416028, util=99.77%
 ```
+### iSCSI TruNAS Scale - Sync Standard - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=20.3k, BW=79.3MiB/s (83.1MB/s)(3070MiB/38725msec)
+write: IOPS=6782, BW=26.5MiB/s (27.8MB/s)(1026MiB/38725msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=84.0MiB/s,w=27.5MiB/s][r=21.5k,w=7030 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3676594: Wed May 17 18:09:23 2023
+  read: IOPS=20.3k, BW=79.3MiB/s (83.1MB/s)(3070MiB/38725msec)
+   bw (  KiB/s): min=20440, max=123040, per=100.00%, avg=81178.68, stdev=24910.84, samples=77
+   iops        : min= 5112, max=30760, avg=20294.65, stdev=6227.70, samples=77
+  write: IOPS=6782, BW=26.5MiB/s (27.8MB/s)(1026MiB/38725msec); 0 zone resets
+   bw (  KiB/s): min= 6568, max=40456, per=100.00%, avg=27128.95, stdev=8306.46, samples=77
+   iops        : min= 1642, max=10114, avg=6782.22, stdev=2076.62, samples=77
+  cpu          : usr=6.67%, sys=36.55%, ctx=93731, majf=0, minf=8
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
 
+Run status group 0 (all jobs):
+   READ: bw=79.3MiB/s (83.1MB/s), 79.3MiB/s-79.3MiB/s (83.1MB/s-83.1MB/s), io=3070MiB (3219MB), run=38725-38725msec
+  WRITE: bw=26.5MiB/s (27.8MB/s), 26.5MiB/s-26.5MiB/s (27.8MB/s-27.8MB/s), io=1026MiB (1076MB), run=38725-38725msec
+
+Disk stats (read/write):
+  sda: ios=784294/262411, merge=0/300, ticks=1753879/589145, in_queue=333820, util=99.59%
+```
+### SSD Intel 730_480GB "Skull"
+https://www.tweaktown.com/reviews/6113/intel-730-series-480gb-ssd-review-the-skulltrail-of-ssds-/index.html
+```
+read: IOPS=43.7k, BW=171MiB/s (179MB/s)(3070MiB/17964msec)
+write: IOPS=14.6k, BW=57.1MiB/s (59.9MB/s)(1026MiB/17964msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=173MiB/s,w=56.9MiB/s][r=44.2k,w=14.6k IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3684352: Wed May 17 18:30:41 2023
+  read: IOPS=43.7k, BW=171MiB/s (179MB/s)(3070MiB/17964msec)
+   bw (  KiB/s): min=152768, max=197648, per=100.00%, avg=175275.83, stdev=13491.80, samples=35
+   iops        : min=38192, max=49412, avg=43818.89, stdev=3372.93, samples=35
+  write: IOPS=14.6k, BW=57.1MiB/s (59.9MB/s)(1026MiB/17964msec); 0 zone resets
+   bw (  KiB/s): min=50048, max=66080, per=100.00%, avg=58594.23, stdev=4540.43, samples=35
+   iops        : min=12512, max=16520, avg=14648.54, stdev=1135.12, samples=35
+  cpu          : usr=11.07%, sys=86.17%, ctx=26144, majf=0, minf=10
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=171MiB/s (179MB/s), 171MiB/s-171MiB/s (179MB/s-179MB/s), io=3070MiB (3219MB), run=17964-17964msec
+  WRITE: bw=57.1MiB/s (59.9MB/s), 57.1MiB/s-57.1MiB/s (59.9MB/s-59.9MB/s), io=1026MiB (1076MB), run=17964-17964msec
+
+Disk stats (read/write):
+  sda: ios=782741/261778, merge=0/143, ticks=223440/23100, in_queue=108, util=99.54%
+```
 
 
