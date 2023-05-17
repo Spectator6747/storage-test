@@ -1,6 +1,6 @@
 # storage-test on ESXi servers
 
-cmd:
+#### cmd:
 ```bash
 fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 ```
@@ -392,6 +392,38 @@ Run status group 0 (all jobs):
 
 Disk stats (read/write):
   sda: ios=782741/261778, merge=0/143, ticks=223440/23100, in_queue=108, util=99.54%
+```
+### NVMe ADATA XPG SX8200Pro 2TB
+```
+read: IOPS=43.1k, BW=168MiB/s (177MB/s)(3070MiB/18228msec)
+write: IOPS=14.4k, BW=56.3MiB/s (59.0MB/s)(1026MiB/18228msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=170MiB/s,w=56.2MiB/s][r=43.6k,w=14.4k IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3686408: Wed May 17 18:36:22 2023
+  read: IOPS=43.1k, BW=168MiB/s (177MB/s)(3070MiB/18228msec)
+   bw (  KiB/s): min=157584, max=195408, per=100.00%, avg=172516.22, stdev=12105.67, samples=36
+   iops        : min=39396, max=48852, avg=43129.06, stdev=3026.42, samples=36
+  write: IOPS=14.4k, BW=56.3MiB/s (59.0MB/s)(1026MiB/18228msec); 0 zone resets
+   bw (  KiB/s): min=52560, max=66480, per=100.00%, avg=57650.44, stdev=4028.14, samples=36
+   iops        : min=13140, max=16620, avg=14412.61, stdev=1007.04, samples=36
+  cpu          : usr=11.29%, sys=86.33%, ctx=21819, majf=0, minf=9
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=168MiB/s (177MB/s), 168MiB/s-168MiB/s (177MB/s-177MB/s), io=3070MiB (3219MB), run=18228-18228msec
+  WRITE: bw=56.3MiB/s (59.0MB/s), 56.3MiB/s-56.3MiB/s (59.0MB/s-59.0MB/s), io=1026MiB (1076MB), run=18228-18228msec
+
+Disk stats (read/write):
+  sda: ios=781960/261506, merge=0/156, ticks=141631/16886, in_queue=1536, util=99.58%
 ```
 
 
