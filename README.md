@@ -264,6 +264,70 @@ Disk stats (read/write):
   sda: ios=782721/262535, merge=0/740, ticks=4695918/1881260, in_queue=4567672, util=99.72%
 
 ```
+### iSCSI TruNAS Scale - Sync Always - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=19.0k, BW=74.3MiB/s (77.9MB/s)(3070MiB/41297msec)
+write: IOPS=6360, BW=24.8MiB/s (26.1MB/s)(1026MiB/41297msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=109MiB/s,w=35.8MiB/s][r=27.9k,w=9157 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3678265: Wed May 17 18:14:05 2023
+  read: IOPS=19.0k, BW=74.3MiB/s (77.9MB/s)(3070MiB/41297msec)
+   bw (  KiB/s): min=26128, max=112400, per=99.68%, avg=75880.78, stdev=24587.02, samples=82
+   iops        : min= 6532, max=28100, avg=18970.20, stdev=6146.75, samples=82
+  write: IOPS=6360, BW=24.8MiB/s (26.1MB/s)(1026MiB/41297msec); 0 zone resets
+   bw (  KiB/s): min= 8920, max=37968, per=99.67%, avg=25356.51, stdev=8123.60, samples=82
+   iops        : min= 2230, max= 9492, avg=6339.11, stdev=2030.93, samples=82
+  cpu          : usr=7.10%, sys=34.57%, ctx=95440, majf=0, minf=9
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
 
-  
+Run status group 0 (all jobs):
+   READ: bw=74.3MiB/s (77.9MB/s), 74.3MiB/s-74.3MiB/s (77.9MB/s-77.9MB/s), io=3070MiB (3219MB), run=41297-41297msec
+  WRITE: bw=24.8MiB/s (26.1MB/s), 24.8MiB/s-24.8MiB/s (26.1MB/s-26.1MB/s), io=1026MiB (1076MB), run=41297-41297msec
+
+Disk stats (read/write):
+  sda: ios=781571/261531, merge=0/316, ticks=1798734/708272, in_queue=451624, util=99.58%
+```
+### iSCSI TruNAS Scale - Sync Disabled - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=19.0k, BW=78.1MiB/s (81.9MB/s)(3070MiB/39327msec)
+write: IOPS=6678, BW=26.1MiB/s (27.4MB/s)(1026MiB/39327msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=54.6MiB/s,w=17.9MiB/s][r=13.0k,w=4587 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3676118: Wed May 17 18:08:04 2023
+  read: IOPS=19.0k, BW=78.1MiB/s (81.9MB/s)(3070MiB/39327msec)
+   bw (  KiB/s): min=33720, max=122600, per=100.00%, avg=79936.96, stdev=25740.01, samples=78
+   iops        : min= 8430, max=30650, avg=19984.23, stdev=6434.98, samples=78
+  write: IOPS=6678, BW=26.1MiB/s (27.4MB/s)(1026MiB/39327msec); 0 zone resets
+   bw (  KiB/s): min=10648, max=41072, per=99.99%, avg=26711.68, stdev=8626.69, samples=78
+   iops        : min= 2662, max=10268, avg=6677.91, stdev=2156.66, samples=78
+  cpu          : usr=6.90%, sys=36.66%, ctx=87668, majf=0, minf=8
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=78.1MiB/s (81.9MB/s), 78.1MiB/s-78.1MiB/s (81.9MB/s-81.9MB/s), io=3070MiB (3219MB), run=39327-39327msec
+  WRITE: bw=26.1MiB/s (27.4MB/s), 26.1MiB/s-26.1MiB/s (27.4MB/s-27.4MB/s), io=1026MiB (1076MB), run=39327-39327msec
+
+Disk stats (read/write):
+  sda: ios=781917/261692, merge=1/300, ticks=1773606/594856, in_queue=416028, util=99.77%
+```
+
+
 
