@@ -135,5 +135,36 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=783581/261907, merge=0/6, ticks=1517847/508392, in_queue=2026238, util=99.79%
 ```
+### NFS TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG
+```
+read: IOPS=7609, BW=29.7MiB/s (31.2MB/s)(3070MiB/103275msec)
+write: IOPS=2543, BW=9.93MiB/s (10.4MB/s)(1026MiB/103275msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.28
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=40.8MiB/s,w=13.5MiB/s][r=10.4k,w=3455 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=4604: Wed May 17 17:04:39 2023
+  read: IOPS=7609, BW=29.7MiB/s (31.2MB/s)(3070MiB/103275msec)
+   bw (  KiB/s): min=13344, max=102720, per=99.97%, avg=30430.68, stdev=14867.69, samples=206
+   iops        : min= 3336, max=25680, avg=7607.67, stdev=3716.92, samples=206
+  write: IOPS=2543, BW=9.93MiB/s (10.4MB/s)(1026MiB/103275msec); 0 zone resets
+   bw (  KiB/s): min= 4624, max=33768, per=99.97%, avg=10170.64, stdev=4935.83, samples=206
+   iops        : min= 1156, max= 8442, avg=2542.66, stdev=1233.96, samples=206
+  cpu          : usr=2.67%, sys=13.53%, ctx=147556, majf=0, minf=6
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
 
-  
+Run status group 0 (all jobs):
+   READ: bw=29.7MiB/s (31.2MB/s), 29.7MiB/s-29.7MiB/s (31.2MB/s-31.2MB/s), io=3070MiB (3219MB), run=103275-103275msec
+  WRITE: bw=9.93MiB/s (10.4MB/s), 9.93MiB/s-9.93MiB/s (10.4MB/s-10.4MB/s), io=1026MiB (1076MB), run=103275-103275msec
+
+Disk stats (read/write):
+  sda: ios=784221/262119, merge=0/20, ticks=4658242/1854453, in_queue=6512694, util=99.99%
+
+
