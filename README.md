@@ -5,6 +5,77 @@
 fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
 ```
 
+### NvMe Samsung EVO960_1TB
+```
+read: IOPS=50.2k, BW=196MiB/s (205MB/s)(3070MiB/15669msec)
+write: IOPS=16.8k, BW=65.5MiB/s (68.7MB/s)(1026MiB/15669msec)
+```
+### NVMe ADATA XPG SX8200Pro 2TB
+```
+read: IOPS=43.1k, BW=168MiB/s (177MB/s)(3070MiB/18228msec)
+write: IOPS=14.4k, BW=56.3MiB/s (59.0MB/s)(1026MiB/18228msec)
+```
+---
+### SSD Samsung 860Pro_1TB
+```
+read:	IOPS=43.4k, BW=170MiB/s (178MB/s)(3070MiB/18105msec)
+write:	IOPS=14.5k, BW=56.7MiB/s (59.4MB/s)(1026MiB/18105msec)
+```
+### SSD Samsung PM883 3.84TB
+```
+read: IOPS=41.3k, BW=161MiB/s (169MB/s)(3070MiB/19030msec)
+write: IOPS=13.8k, BW=53.9MiB/s (56.5MB/s)(1026MiB/19030msec)
+```
+### SSD Intel 730_480GB "Skull"
+```
+read: IOPS=43.7k, BW=171MiB/s (179MB/s)(3070MiB/17964msec)
+write: IOPS=14.6k, BW=57.1MiB/s (59.9MB/s)(1026MiB/17964msec)
+```
+---
+### iSCSI TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=20.0k, BW=78.3MiB/s (82.1MB/s)(3070MiB/39227msec)
+write: IOPS=6695, BW=26.2MiB/s (27.4MB/s)(1026MiB/39227msec)
+```
+### iSCSI TruNAS Scale - Sync Disabled - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=22.8k, BW=89.1MiB/s (93.4MB/s)(3070MiB/34457msec)
+write: IOPS=7622, BW=29.8MiB/s (31.2MB/s)(1026MiB/34457msec)
+```
+### iSCSI TruNAS Scale - Sync Always - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=19.0k, BW=74.3MiB/s (77.9MB/s)(3070MiB/41297msec)
+write: IOPS=6360, BW=24.8MiB/s (26.1MB/s)(1026MiB/41297msec)
+```
+### iSCSI TruNAS Scale - Sync Disabled - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=19.0k, BW=78.1MiB/s (81.9MB/s)(3070MiB/39327msec)
+write: IOPS=6678, BW=26.1MiB/s (27.4MB/s)(1026MiB/39327msec)
+```
+---
+### NFS TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=7609, BW=29.7MiB/s (31.2MB/s)(3070MiB/103275msec)
+write: IOPS=2543, BW=9.93MiB/s (10.4MB/s)(1026MiB/103275msec)
+```
+### NFS TruNAS Scale - Sync Disabled - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
+```
+read: IOPS=7812, BW=30.5MiB/s (32.0MB/s)(3070MiB/100601msec)
+write: IOPS=2610, BW=10.2MiB/s (10.7MB/s)(1026MiB/100601msec)
+```
+### NFS TruNAS Scale - Sync Disabled - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED 
+```
+read: IOPS=7476, BW=29.2MiB/s (30.6MB/s)(3070MiB/105123msec)
+write: IOPS=2498, BW=9994KiB/s (10.2MB/s)(1026MiB/105123msec)
+```
+### NFS TruNAS Scale - Sync Always - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED 
+```
+read: IOPS=7764, BW=30.3MiB/s (31.8MB/s)(3070MiB/101216msec)
+write: IOPS=2595, BW=10.1MiB/s (10.6MB/s)(1026MiB/101216msec)
+```
+
+---
+
 ### SSD Samsung 860Pro_1TB
 ```
 read:	IOPS=43.4k, BW=170MiB/s (178MB/s)(3070MiB/18105msec)
@@ -425,5 +496,35 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=781960/261506, merge=0/156, ticks=141631/16886, in_queue=1536, util=99.58%
 ```
+### SSD Samsung PM883 3.84TB
+```
+read: IOPS=41.3k, BW=161MiB/s (169MB/s)(3070MiB/19030msec)
+write: IOPS=13.8k, BW=53.9MiB/s (56.5MB/s)(1026MiB/19030msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=167MiB/s,w=55.1MiB/s][r=42.8k,w=14.1k IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3688774: Wed May 17 18:43:01 2023
+  read: IOPS=41.3k, BW=161MiB/s (169MB/s)(3070MiB/19030msec)
+   bw (  KiB/s): min=148632, max=192336, per=99.99%, avg=165177.66, stdev=10985.18, samples=38
+   iops        : min=37158, max=48084, avg=41294.39, stdev=2746.32, samples=38
+  write: IOPS=13.8k, BW=53.9MiB/s (56.5MB/s)(1026MiB/19030msec); 0 zone resets
+   bw (  KiB/s): min=50264, max=64912, per=99.99%, avg=55201.92, stdev=3824.01, samples=38
+   iops        : min=12566, max=16228, avg=13800.47, stdev=956.01, samples=38
+  cpu          : usr=11.05%, sys=85.98%, ctx=28438, majf=0, minf=10
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
 
+Run status group 0 (all jobs):
+   READ: bw=161MiB/s (169MB/s), 161MiB/s-161MiB/s (169MB/s-169MB/s), io=3070MiB (3219MB), run=19030-19030msec
+  WRITE: bw=53.9MiB/s (56.5MB/s), 53.9MiB/s-53.9MiB/s (56.5MB/s-56.5MB/s), io=1026MiB (1076MB), run=19030-19030msec
 
+Disk stats (read/write):
+  sda: ios=780290/260963, merge=0/145, ticks=159641/22897, in_queue=364, util=99.60%
+```
