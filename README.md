@@ -70,7 +70,7 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=784416/262233, merge=0/23, ticks=166994/20124, in_queue=187117, util=99.68%
 ```
-### iSCSI TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG
+### iSCSI TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
 ```
 read: IOPS=20.0k, BW=78.3MiB/s (82.1MB/s)(3070MiB/39227msec)
 write: IOPS=6695, BW=26.2MiB/s (27.4MB/s)(1026MiB/39227msec)
@@ -103,7 +103,7 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=783406/261852, merge=0/7, ticks=1704136/663975, in_queue=2368111, util=99.83%
 ```  
-### iSCSI TruNAS Scale - Sync Disabled - Network Storage over IP 10GB - Optane 118GB as SLOG
+### iSCSI TruNAS Scale - Sync Disabled - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
 ```
 read: IOPS=22.8k, BW=89.1MiB/s (93.4MB/s)(3070MiB/34457msec)
 write: IOPS=7622, BW=29.8MiB/s (31.2MB/s)(1026MiB/34457msec)
@@ -135,7 +135,7 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=783581/261907, merge=0/6, ticks=1517847/508392, in_queue=2026238, util=99.79%
 ```
-### NFS TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG
+### NFS TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED
 ```
 read: IOPS=7609, BW=29.7MiB/s (31.2MB/s)(3070MiB/103275msec)
 write: IOPS=2543, BW=9.93MiB/s (10.4MB/s)(1026MiB/103275msec)
