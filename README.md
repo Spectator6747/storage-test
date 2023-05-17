@@ -199,6 +199,38 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=783518/261909, merge=0/20, ticks=4535038/1803967, in_queue=6339005, util=99.98%
 ```
+### NFS TruNAS Scale - Sync Always - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED 
+```
+read: IOPS=7764, BW=30.3MiB/s (31.8MB/s)(3070MiB/101216msec)
+write: IOPS=2595, BW=10.1MiB/s (10.6MB/s)(1026MiB/101216msec)
+```
+```
+:~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.16
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=41.2MiB/s,w=13.6MiB/s][r=10.6k,w=3489 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=3666375: Wed May 17 17:42:03 2023
+  read: IOPS=7764, BW=30.3MiB/s (31.8MB/s)(3070MiB/101216msec)
+   bw (  KiB/s): min=12992, max=99288, per=99.89%, avg=31025.23, stdev=14628.47, samples=202
+   iops        : min= 3248, max=24822, avg=7756.30, stdev=3657.12, samples=202
+  write: IOPS=2595, BW=10.1MiB/s (10.6MB/s)(1026MiB/101216msec); 0 zone resets
+   bw (  KiB/s): min= 4176, max=34064, per=99.90%, avg=10369.50, stdev=4857.89, samples=202
+   iops        : min= 1044, max= 8516, avg=2592.37, stdev=1214.47, samples=202
+  cpu          : usr=2.74%, sys=13.76%, ctx=147035, majf=0, minf=8
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=30.3MiB/s (31.8MB/s), 30.3MiB/s-30.3MiB/s (31.8MB/s-31.8MB/s), io=3070MiB (3219MB), run=101216-101216msec
+  WRITE: bw=10.1MiB/s (10.6MB/s), 10.1MiB/s-10.1MiB/s (10.6MB/s-10.6MB/s), io=1026MiB (1076MB), run=101216-101216msec
+
+Disk stats (read/write):
+  sda: ios=784996/263196, merge=0/685, ticks=4537349/1813691, in_queue=4348196, util=99.90%
+```
 ### NFS TruNAS Scale - Sync Disabled - Same Server Host - Optane 118GB as SLOG + RaidZ2 4xHDD 8TB WD RED 
 ```
 read: IOPS=7476, BW=29.2MiB/s (30.6MB/s)(3070MiB/105123msec)
