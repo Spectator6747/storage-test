@@ -70,7 +70,7 @@ Run status group 0 (all jobs):
 Disk stats (read/write):
   sda: ios=784416/262233, merge=0/23, ticks=166994/20124, in_queue=187117, util=99.68%
 ```
-### iSCSI TruNAS Scale - Sync Always - Network Storage over IP 10GB
+### iSCSI TruNAS Scale - Sync Always - Network Storage over IP 10GB - Optane 118GB as SLOG
 ```
 read: IOPS=20.0k, BW=78.3MiB/s (82.1MB/s)(3070MiB/39227msec)
 write: IOPS=6695, BW=26.2MiB/s (27.4MB/s)(1026MiB/39227msec)
@@ -102,3 +102,38 @@ Run status group 0 (all jobs):
 
 Disk stats (read/write):
   sda: ios=783406/261852, merge=0/7, ticks=1704136/663975, in_queue=2368111, util=99.83%
+```  
+### iSCSI TruNAS Scale - Sync Disabled - Network Storage over IP 10GB - Optane 118GB as SLOG
+```
+read: IOPS=22.8k, BW=89.1MiB/s (93.4MB/s)(3070MiB/34457msec)
+write: IOPS=7622, BW=29.8MiB/s (31.2MB/s)(1026MiB/34457msec)
+```
+```
+~# fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75
+test: (g=0): rw=randrw, bs=(R) 4096B-4096B, (W) 4096B-4096B, (T) 4096B-4096B, ioengine=libaio, iodepth=64
+fio-3.28
+Starting 1 process
+Jobs: 1 (f=1): [m(1)][100.0%][r=112MiB/s,w=36.7MiB/s][r=28.7k,w=9383 IOPS][eta 00m:00s]
+test: (groupid=0, jobs=1): err= 0: pid=4581: Wed May 17 16:32:45 2023
+  read: IOPS=22.8k, BW=89.1MiB/s (93.4MB/s)(3070MiB/34457msec)
+   bw (  KiB/s): min=48792, max=122104, per=99.60%, avg=90872.82, stdev=18524.45, samples=68
+   iops        : min=12198, max=30526, avg=22718.21, stdev=4631.11, samples=68
+  write: IOPS=7622, BW=29.8MiB/s (31.2MB/s)(1026MiB/34457msec); 0 zone resets
+   bw (  KiB/s): min=15920, max=40840, per=99.61%, avg=30372.47, stdev=6198.54, samples=68
+   iops        : min= 3980, max=10210, avg=7593.12, stdev=1549.63, samples=68
+  cpu          : usr=7.63%, sys=43.65%, ctx=131975, majf=0, minf=7
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=0.1%, 16=0.1%, 32=0.1%, >=64=100.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.1%, >=64=0.0%
+     issued rwts: total=785920,262656,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=64
+
+Run status group 0 (all jobs):
+   READ: bw=89.1MiB/s (93.4MB/s), 89.1MiB/s-89.1MiB/s (93.4MB/s-93.4MB/s), io=3070MiB (3219MB), run=34457-34457msec
+  WRITE: bw=29.8MiB/s (31.2MB/s), 29.8MiB/s-29.8MiB/s (31.2MB/s-31.2MB/s), io=1026MiB (1076MB), run=34457-34457msec
+
+Disk stats (read/write):
+  sda: ios=783581/261907, merge=0/6, ticks=1517847/508392, in_queue=2026238, util=99.79%
+```
+
+  
